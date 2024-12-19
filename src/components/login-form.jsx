@@ -12,12 +12,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { auth, provider, signInWithPopup } from "../../firebase"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
   className,
   ...props
 }) {
-
+const router = useRouter();
   const [error, setError] = useState(null);
 
   // Handle Google login
@@ -27,6 +28,7 @@ export function LoginForm({
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       console.log("User signed in with Google:", user);
+router.push("/login")
       // You can add user information to your state or navigate the user to a different page
     } catch (err) {
       console.error("Error signing in with Google:", err);
